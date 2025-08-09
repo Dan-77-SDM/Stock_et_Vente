@@ -1,0 +1,11 @@
+/home/sdm/Bureau/Gestion-stock/src/main/java/repository/DatabaseConnection.java
+/home/sdm/Bureau/Gestion-stock/src/main/java/repository/AdministrateurRepository.java
+/home/sdm/Bureau/Gestion-stock/src/main/java/services/AdministrateurService.java
+/home/sdm/Bureau/Gestion-stock/src/main/java/controller/AdministrateurController.java
+/home/sdm/Bureau/Gestion-stock/src/main/java/entities/Administrateur.java
+/home/sdm/Bureau/Gestion-stock/src/main/java/utility/PasswordUtils.java
+/home/sdm/Bureau/Gestion-stock/src/main/java/MainDatabaseconnection.java
+/home/sdm/Bureau/Gestion-stock/src/main/java/controller/ConnexionController.java
+/home/sdm/Bureau/Gestion-stock/src/main/java/controller/IndexController.java
+/home/sdm/Bureau/Gestion-stock/src/main/java/utility/ThymeleafConfig.java
+/home/sdm/Bureau/Gestion-stock/src/main/java/controller/InscriptionController.java

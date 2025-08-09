@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Inscription</title>
-  <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+      <link rel="stylesheet" th:href="@{resources/CSS/style.css}">
+
 </head>
 <body>
 
@@ -18,32 +19,33 @@
     <p>Rejoignez notre communauté de commerçants et de gestionnaires de stock.
       <br>Shopkipper est là pour vous accompagner dans la gestion de votre activité.
       <br>Inscrivez-vous et commencez à profiter de tous les avantages dès aujourd'hui !
-      
     </p>
   </div>
 
   <div class="container">
-    <form class="form">
+    <form class="form" th:action="@{/formInscription}" method="post"> <!-- diriger vers le bon endpoint -->
       <h2>Créer un compte</h2>
 
+     
+
       <label for="nom">Nom complet</label>
-      <input type="text" id="nom" placeholder="Entrez votre nom complet" required>
+      <input type="text" id="nom" placeholder="Entrez votre nom complet" name="nom" required>
 
       <label for="email">Adresse email</label>
-      <input type="email" id="email" placeholder="exemple@email.com" required>
+      <input type="email" id="email" placeholder="exemple@email.com" name="email" required>
 
       <label for="nomUtilisateur">Nom d'utilisateur</label>
-      <input type="text" id="nomUtilisateur" placeholder="Nom d'utilisateur" required>
+      <input type="text" id="nomUtilisateur" placeholder="Nom d'utilisateur" name="nom_utilisateur" required>
 
       <label for="password">Mot de passe</label>
       <div class="password-container">
-        <input type="password" id="password" placeholder="Mot de passe" required>
+        <input type="password" id="password" placeholder="Mot de passe" name="mot_de_passe" required>
         <i class="fas fa-eye toggle-password" onclick="togglePassword('password', this)"></i>
       </div>
 
       <label for="confirmPassword">Confirmer le mot de passe</label>
       <div class="password-container">
-        <input type="password" id="confirmPassword" placeholder="Confirmer le mot de passe" required>
+      <input type="password" id="confirmPassword" placeholder="Confirmer le mot de passe" name="confirmPassword" required>
         <i class="fas fa-eye toggle-password" onclick="togglePassword('confirmPassword', this)"></i>
       </div>
 
@@ -56,7 +58,7 @@
       </button>
 
       <p class="lien-de-connexion">
-        Déjà un compte ? <a href="formConnexion.html">Se connecter</a>
+        Déjà un compte ? <a th:href="@{/formConnexion}">Se connecter</a>
       </p>
     </form>
   </div>
@@ -66,7 +68,6 @@
     function togglePassword(inputId, icon) {
       const input = document.getElementById(inputId);
       const isPassword = input.type === "password";
-
       input.type = isPassword ? "text" : "password";
       icon.classList.toggle("fa-eye");
       icon.classList.toggle("fa-eye-slash");

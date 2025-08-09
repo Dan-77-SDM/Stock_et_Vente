@@ -1,0 +1,11 @@
+controller/InscriptionController.class
+controller/IndexController.class
+controller/AdministrateurController.class
+controller/ConnexionController.class
+repository/AdministrateurRepository.class
+utility/PasswordUtils.class
+services/AdministrateurService.class
+MainDatabaseconnection.class
+repository/DatabaseConnection.class
+utility/ThymeleafConfig.class
+entities/Administrateur.class
