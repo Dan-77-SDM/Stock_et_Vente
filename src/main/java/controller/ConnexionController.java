@@ -21,28 +21,32 @@ public class ConnexionController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Affiche la page de connexion, message d’erreur si présent
         ThymeleafConfig.render(request, response, "formConnexion");
     }
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+   @Override
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
 
-        String email = request.getParameter("email");
-        String motDePasse = request.getParameter("mot_de_passe");
+    String email = request.getParameter("email");
+    String motDePasse = request.getParameter("mot_de_passe");
 
-        Administrateur admin = adminService.authentifier(email, motDePasse);
-
-        if (admin != null) {
-            // Authentification réussie : stocker dans session et rediriger
-            HttpSession session = request.getSession();
-            session.setAttribute("admin", admin);
-            response.sendRedirect(request.getContextPath() + "/index"); // adapter selon ton mapping
-        } else {
-            // Authentification échouée : mettre message d’erreur puis afficher la page
-            request.setAttribute("erreur", "Email ou mot de passe incorrect");
-            ThymeleafConfig.render(request, response, "formConnexion");
-        }
+    if (email == null || motDePasse == null || email.isEmpty() || motDePasse.isEmpty()) {
+        request.setAttribute("erreur", "Veuillez remplir tous les champs.");
+        ThymeleafConfig.render(request, response, "formConnexion");
+        return;
     }
+
+    Administrateur admin = adminService.authentifier(email, motDePasse);
+
+    if (admin != null) {
+        HttpSession session = request.getSession();
+        session.setAttribute("admin", admin);
+        response.sendRedirect(request.getContextPath() + "/index");
+    } else {
+        request.setAttribute("erreur", "Email ou mot de passe incorrect");
+        ThymeleafConfig.render(request, response, "formConnexion");
+    }
+}
+
 }

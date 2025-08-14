@@ -27,21 +27,26 @@ public class ThymeleafConfig {
         templateEngine.setTemplateResolver(resolver);
     }
 
-    public static void render(HttpServletRequest request, HttpServletResponse response, String templateName) {
-        try {
-            ServletContext servletContext = request.getServletContext();
+   public static void render(HttpServletRequest request, HttpServletResponse response, String templateName) {
+    try {
+        ServletContext servletContext = request.getServletContext();
 
-            JakartaServletWebApplication app = JakartaServletWebApplication.buildApplication(servletContext);
-            IWebExchange webExchange = app.buildExchange(request, response);
+        JakartaServletWebApplication app = JakartaServletWebApplication.buildApplication(servletContext);
+        IWebExchange webExchange = app.buildExchange(request, response);
 
-            WebContext webContext = new WebContext(webExchange);
+        WebContext webContext = new WebContext(webExchange);
 
-            response.setContentType("text/html;charset=UTF-8");
+        // Copier les attributs du request vers Thymeleaf
+        request.getAttributeNames().asIterator().forEachRemaining(attrName -> {
+            webContext.setVariable(attrName, request.getAttribute(attrName));
+        });
 
-            templateEngine.process(templateName, webContext, response.getWriter());
+        response.setContentType("text/html;charset=UTF-8");
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        templateEngine.process(templateName, webContext, response.getWriter());
+
+    } catch (Exception e) {
+        e.printStackTrace();
     }
 }
+ }

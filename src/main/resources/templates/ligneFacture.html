@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Gestion des Lignes de Facture</title>
+    <link rel="stylesheet" th:href="@{/resources/CSS/styles.css}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+</head>
+
+<body>
+
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h2 class="logo">Shopkipper</h2>
+        </div>
+        <div class="sidebar-menu">
+            <a th:href="@{/index}">
+                <div class="menu-item"><i class="fas fa-home"></i> Dashboard</div>
+            </a>
+            <a th:href="@{/produits}">
+                <div class="menu-item"><i class="fas fa-box"></i> Produits</div>
+            </a>
+            <a th:href="@{/fournisseurs}">
+                <div class="menu-item"><i class="fas fa-truck"></i> Fournisseurs</div>
+            </a>
+            <a th:href="@{/clients}">
+                <div class="menu-item"><i class="fas fa-users"></i> Clients</div>
+            </a>
+            <a th:href="@{/factures}">
+                <div class="menu-item"><i class="fas fa-file-invoice"></i> Factures</div>
+            </a>
+            <a th:href="@{/ligneFacture}" class="active">
+                <div class="menu-item"><i class="fas fa-file-alt"></i> Ligne Facture</div>
+            </a>
+            <a th:href="@{/parametres}">
+                <div class="menu-item"><i class="fas fa-cog"></i> Paramètres</div>
+            </a>
+        </div>
+    </aside>
+
+    <div class="main-content">
+        <header class="navbar">
+            <button class="btn-hamburger" onclick="toggleSidebar()">&#9776;</button>
+            <div class="search-bar">
+                <input type="text" placeholder="Recherche..." />
+                <button><i class="fas fa-search"></i></button>
+            </div>
+            <div class="navbar-right">
+                <button class="btn-notification"><i class="fas fa-bell"></i></button>
+                <div class="profile-menu">
+                    <button class="btn-profile" onclick="toggleProfileMenu()"><i
+                            class="fas fa-user-circle"></i></button>
+                    <ul class="dropdown-menu" id="profileDropdown">
+                        <li><a href="/profile">Profil</a></li>
+                        <li><a href="/logout">Déconnexion</a></li>
+                    </ul>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <h1>Gestion des Lignes de Facture</h1>
+
+            <div th:if="${session.message}" class="alert-message alert-success">
+                <p th:text="${session.message}"></p>
+            </div>
+            <div th:if="${session.error}" class="alert-message alert-error">
+                <p th:text="${session.error}"></p>
+            </div>
+
+            <!-- Formulaire ajout / modification -->
+            <div class="card add-client-card">
+                <h3>Ajouter / Modifier une ligne de facture</h3>
+                <form th:action="@{/ligneFacture/save}" method="post">
+                    <input type="hidden" name="id_ligne" th:value="${ligneFacture.id_ligne}" />
+
+                    <div class="form-group">
+                        <label for="quantite">Quantité</label>
+                        <input type="number" id="quantite" name="quantite" th:value="${ligneFacture.quantite}"
+                            required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="prixUnitaire">Prix unitaire</label>
+                        <input type="number" id="prixUnitaire" name="prixUnitaire"
+                            th:value="${ligneFacture.prixUnitaire}" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="id_produit">Produit</label>
+                        <select id="id_produit" name="id_produit" required>
+                            <option th:each="p : ${produits}" th:value="${p.id_produit}" th:text="${p.designation}"
+                                th:selected="${ligneFacture.id_produit} == ${p.id_produit}"></option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="id_facture">Facture</label>
+                        <select id="id_facture" name="id_facture" required>
+                            <option th:each="f : ${factures}" th:value="${f.id_facture}"
+                                th:text="${f.id_facture} + ' - ' + ${f.date}"
+                                th:selected="${ligneFacture.id_facture} == ${f.id_facture}"></option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn-primary">Valider</button>
+                </form>
+            </div>
+
+            <!-- Tableau des lignes de facture -->
+            <div class="table-responsive">
+                <table class="clients-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Quantité</th>
+                            <th>Prix unitaire</th>
+                            <th>ID Produit</th>
+                            <th>ID Facture</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="l : ${lignesFacture}">
+                            <td th:text="${l.id_ligne}"></td>
+                            <td th:text="${l.quantite}"></td>
+                            <td th:text="${l.prixUnitaire} + ' F'"></td>
+                            <td th:text="${l.id_produit}"></td>
+                            <td th:text="${l.id_facture}"></td>
+                            <td>
+                                <a th:href="@{/ligneFacture/editer(id=${l.id_ligne})}" title="Modifier"><i
+                                        class="fas fa-edit"></i></a>
+                                <a th:href="@{/ligneFacture/supprimer(id=${l.id_ligne})}" title="Supprimer"
+                                    onclick="return confirm('Voulez-vous vraiment supprimer cette ligne ?')"><i
+                                        class="fas fa-trash-alt"></i></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </main>
+
+        <footer class="bottom-bar">
+            <div>© 2025 Shopkipper</div>
+            <div class="bottom-links">
+                <a href="/help">Aide</a>
+                <a href="/contact">Contact</a>
+                <a href="/privacy">Confidentialité</a>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            document.querySelector('.sidebar').classList.toggle('collapsed');
+            document.querySelector('.main-content').classList.toggle('expanded');
+        }
+        function toggleProfileMenu() {
+            document.getElementById('profileDropdown').classList.toggle('show');
+        }
+        window.onclick = function (event) {
+            if (!event.target.matches('.btn-profile')) {
+                let dropdown = document.getElementById('profileDropdown');
+                if (dropdown.classList.contains('show')) dropdown.classList.remove('show');
+            }
+        }
+    </script>
+
+</body>
+
+</html>

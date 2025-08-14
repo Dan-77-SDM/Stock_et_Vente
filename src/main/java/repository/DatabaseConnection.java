@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class DatabaseConnection {
 
-    private static final String URL = "jdbc:mysql://172.17.0.3:3306/GrandeBase?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
+private static final String URL = "jdbc:mysql://172.17.0.3:3306/GrandeBase?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
     private static final String USER = "root";
     private static final String PASSWORD = "root"; // mot de passe par défaut
 

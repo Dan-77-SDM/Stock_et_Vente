@@ -1,60 +1,113 @@
 <!DOCTYPE html>
 <html lang="fr" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Inscription</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-      <link rel="stylesheet" th:href="@{resources/CSS/style.css}">
-
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+  />
+  <link rel="stylesheet" th:href="@{/resources/CSS/style.css}" />
 </head>
 <body>
-
   <div class="information-appli">
     <h1>Bienvenue sur Shopkipper</h1>
-    <p>Votre plateforme de gestion de stock simplifiée.
-      <br>Créez un compte pour commencer à gérer vos produits et vos ventes en toute simplicité.</p>
-    <p>Shopkipper est conçu pour vous aider à suivre vos stocks, gérer vos ventes et optimiser votre inventaire.
-      <br>Inscrivez-vous dès maintenant pour découvrir toutes les fonctionnalités qui vous attendent.</p>
-    <p>Rejoignez notre communauté de commerçants et de gestionnaires de stock.
-      <br>Shopkipper est là pour vous accompagner dans la gestion de votre activité.
-      <br>Inscrivez-vous et commencez à profiter de tous les avantages dès aujourd'hui !
+    <p>
+      Votre plateforme de gestion de stock simplifiée.<br />
+      Créez un compte pour commencer à gérer vos produits et vos ventes en toute
+      simplicité.
+    </p>
+    <p>
+      Shopkipper est conçu pour vous aider à suivre vos stocks, gérer vos ventes
+      et optimiser votre inventaire.<br />
+      Inscrivez-vous dès maintenant pour découvrir toutes les fonctionnalités qui
+      vous attendent.
+    </p>
+    <p>
+      Rejoignez notre communauté de commerçants et de gestionnaires de stock.<br />
+      Shopkipper est là pour vous accompagner dans la gestion de votre activité.<br />
+      Inscrivez-vous et commencez à profiter de tous les avantages dès aujourd'hui !
     </p>
   </div>
 
   <div class="container">
-    <form class="form" th:action="@{/formInscription}" method="post"> <!-- diriger vers le bon endpoint -->
+    <form class="form" th:action="@{/formInscription}" method="post" novalidate>
       <h2>Créer un compte</h2>
 
-     
+      <div th:if="${error}" class="error-message">
+        <p th:text="${error}"></p>
+      </div>
 
       <label for="nom">Nom complet</label>
-      <input type="text" id="nom" placeholder="Entrez votre nom complet" name="nom" required>
+      <input
+        type="text"
+        id="nom"
+        placeholder="Entrez votre nom complet"
+        name="nom"
+        required
+      />
 
       <label for="email">Adresse email</label>
-      <input type="email" id="email" placeholder="exemple@email.com" name="email" required>
+      <input
+        type="email"
+        id="email"
+        placeholder="exemple@email.com"
+        name="email"
+        required
+      />
 
       <label for="nomUtilisateur">Nom d'utilisateur</label>
-      <input type="text" id="nomUtilisateur" placeholder="Nom d'utilisateur" name="nom_utilisateur" required>
+      <input
+        type="text"
+        id="nomUtilisateur"
+        placeholder="Nom d'utilisateur"
+        name="nom_utilisateur"
+        required
+      />
 
       <label for="password">Mot de passe</label>
       <div class="password-container">
-        <input type="password" id="password" placeholder="Mot de passe" name="mot_de_passe" required>
-        <i class="fas fa-eye toggle-password" onclick="togglePassword('password', this)"></i>
+        <input
+          type="password"
+          id="password"
+          placeholder="Mot de passe"
+          name="mot_de_passe"
+          required
+        />
+        <i
+          class="fas fa-eye toggle-password"
+          onclick="togglePassword('password', this)"
+          aria-label="Afficher / masquer le mot de passe"
+          role="button"
+          tabindex="0"
+        ></i>
       </div>
 
       <label for="confirmPassword">Confirmer le mot de passe</label>
       <div class="password-container">
-      <input type="password" id="confirmPassword" placeholder="Confirmer le mot de passe" name="confirmPassword" required>
-        <i class="fas fa-eye toggle-password" onclick="togglePassword('confirmPassword', this)"></i>
+        <input
+          type="password"
+          id="confirmPassword"
+          placeholder="Confirmer le mot de passe"
+          name="confirmPassword"
+          required
+        />
+        <i
+          class="fas fa-eye toggle-password"
+          onclick="togglePassword('confirmPassword', this)"
+          aria-label="Afficher / masquer le mot de passe"
+          role="button"
+          tabindex="0"
+        ></i>
       </div>
 
-      <button type="submit">S'inscrire</button>
+      <button type="submit" class="btn-submit">S'inscrire</button>
 
       <div class="divider">ou</div>
 
       <button type="button" class="google-btn">
-        <i class="fab fa-chrome"></i> Continuer avec Google
+        <i class="fab fa-google"></i> Continuer avec Google
       </button>
 
       <p class="lien-de-connexion">
@@ -63,7 +116,6 @@
     </form>
   </div>
 
-  <!-- JS : Affichage / Masquage mot de passe -->
   <script>
     function togglePassword(inputId, icon) {
       const input = document.getElementById(inputId);
@@ -73,6 +125,5 @@
       icon.classList.toggle("fa-eye-slash");
     }
   </script>
-
 </body>
 </html>

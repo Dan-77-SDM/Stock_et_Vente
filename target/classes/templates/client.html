@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Gestion des Clients</title>
+    <link rel="stylesheet" th:href="@{/resources/CSS/styles.css}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+</head>
+
+<body>
+
+<!-- Sidebar -->
+<aside class="sidebar">
+    <div class="sidebar-header">
+        <h2 class="logo">Shopkipper</h2>
+    </div>
+    <div class="sidebar-menu">
+        <a th:href="@{/index}" style="text-decoration: none;">
+            <div class="menu-item"><i class="fas fa-home"></i> Dashboard</div>
+        </a>
+        <a th:href="@{/produits}" style="text-decoration: none;">
+            <div class="menu-item"><i class="fas fa-box"></i> Produits</div>
+        </a>
+        <a th:href="@{/fournisseurs}" style="text-decoration: none;">
+            <div class="menu-item"><i class="fas fa-truck"></i> Fournisseurs</div>
+        </a>
+        <a th:href="@{/clients}" style="text-decoration: none;" class="active">
+            <div class="menu-item"><i class="fas fa-users"></i> Clients</div>
+        </a>
+        <a th:href="@{/factures}" style="text-decoration: none;">
+            <div class="menu-item"><i class="fas fa-file-invoice"></i> Factures</div>
+        </a>
+        <a th:href="@{/ligneFacture}" style="text-decoration: none;">
+            <div class="menu-item"><i class="fas fa-file-alt"></i> Ligne Facture</div>
+        </a>
+        <a th:href="@{/parametres}" style="text-decoration: none;">
+            <div class="menu-item"><i class="fas fa-cog"></i> Paramètres</div>
+        </a>
+    </div>
+</aside>
+
+<div class="main-content">
+    <header class="navbar">
+        <button class="btn-hamburger" onclick="toggleSidebar()">&#9776;</button>
+        <div class="search-bar">
+            <input type="text" placeholder="Recherche..." />
+            <button><i class="fas fa-search"></i></button>
+        </div>
+        <div class="navbar-right">
+            <button class="btn-notification"><i class="fas fa-bell"></i></button>
+            <div class="profile-menu">
+                <button class="btn-profile" onclick="toggleProfileMenu()"><i class="fas fa-user-circle"></i></button>
+                <ul class="dropdown-menu" id="profileDropdown">
+                    <li><a href="/profile">Profil</a></li>
+                    <li><a href="/logout">Déconnexion</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <h1>Gestion des Clients</h1>
+
+        <div th:if="${message}" class="alert-message">
+            <p th:text="${message}"></p>
+        </div>
+
+        <!-- Formulaire ajout / modification -->
+        <div class="card add-client-card">
+            <h3>Ajouter / Modifier un client</h3>
+            <form th:action="@{/clients}" method="post">
+                <input type="hidden" name="id_client" th:value="${client.id_client}" />
+
+                <div class="form-group">
+                    <label for="nom">Nom</label>
+                    <input type="text" id="nom" name="nom" th:value="${client.nom}" placeholder="Nom du client" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" th:value="${client.email}" placeholder="email@exemple.com" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="numero">Numéro de facture</label>
+                    <input type="number" id="numero" name="numero" th:value="${client.numero}" placeholder="00001" required />
+                </div>
+
+                <button type="submit" class="btn-primary">Valider</button>
+            </form>
+        </div>
+
+        <!-- Tableau clients -->
+        <div class="table-responsive">
+            <table class="clients-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nom</th>
+                        <th>Email</th>
+                        <th>Numéro de facture</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="c : ${clients}">
+                        <td th:text="${c.id_client}"></td>
+                        <td th:text="${c.nom}"></td>
+                        <td th:text="${c.email}"></td>
+                        <td th:text="${c.numero}"></td>
+                        <td>
+                            <a th:href="@{/clients/editer/{id}(id=${c.id_client})}" title="Modifier"><i class="fas fa-edit"></i></a>
+                            <a th:href="@{/clients/supprimer/{id}(id=${c.id_client})}" title="Supprimer" onclick="return confirm('Voulez-vous vraiment supprimer ce client ?')"><i class="fas fa-trash-alt"></i></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </main>
+
+    <footer class="bottom-bar">
+        <div>© 2025 Shopkipper</div>
+        <div class="bottom-links">
+            <a href="/help">Aide</a>
+            <a href="/contact">Contact</a>
+            <a href="/privacy">Confidentialité</a>
+        </div>
+    </footer>
+</div>
+
+<script>
+    function toggleSidebar() { document.querySelector('.sidebar').classList.toggle('collapsed'); document.querySelector('.main-content').classList.toggle('expanded'); }
+    function toggleProfileMenu() { document.getElementById('profileDropdown').classList.toggle('show'); }
+    window.onclick = function(event){ if(!event.target.matches('.btn-profile')){ let dropdown = document.getElementById('profileDropdown'); if(dropdown.classList.contains('show')) dropdown.classList.remove('show'); } }
+</script>
+
+</body>
+</html>

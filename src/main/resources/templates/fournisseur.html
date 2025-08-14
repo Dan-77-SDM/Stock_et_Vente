@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Gestion des Fournisseurs</title>
+    <link rel="stylesheet" th:href="@{/resources/CSS/styles.css}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+</head>
+
+<body>
+<aside class="sidebar">
+    <div class="sidebar-header"><h2 class="logo">Shopkipper</h2></div>
+    <div class="sidebar-menu">
+        <a th:href="@{/index}"><div class="menu-item"><i class="fas fa-home"></i> Dashboard</div></a>
+        <a th:href="@{/produits}"><div class="menu-item"><i class="fas fa-box"></i> Produits</div></a>
+        <a th:href="@{/fournisseurs}" class="active"><div class="menu-item"><i class="fas fa-truck"></i> Fournisseurs</div></a>
+        <a th:href="@{/clients}"><div class="menu-item"><i class="fas fa-users"></i> Clients</div></a>
+        <a th:href="@{/factures}"><div class="menu-item"><i class="fas fa-file-invoice"></i> Factures</div></a>
+        <a th:href="@{/ligneFacture}"><div class="menu-item"><i class="fas fa-file-alt"></i> Ligne Facture</div></a>
+        <a th:href="@{/parametres}"><div class="menu-item"><i class="fas fa-cog"></i> Paramètres</div></a>
+    </div>
+</aside>
+
+<div class="main-content">
+    <header class="navbar">
+        <button class="btn-hamburger" onclick="toggleSidebar()">&#9776;</button>
+        <div class="search-bar">
+            <input type="text" placeholder="Recherche..." />
+            <button><i class="fas fa-search"></i></button>
+        </div>
+    </header>
+
+    <main>
+        <h1>Gestion des Fournisseurs</h1>
+
+        <div th:if="${message}" class="alert-message">
+            <p th:text="${message}"></p>
+        </div>
+
+        <div class="card add-client-card">
+            <h3>Ajouter / Modifier un fournisseur</h3>
+            <form th:action="@{/fournisseurs}" method="post">
+                <input type="hidden" name="id_fournisseur" th:value="${fournisseur.id_fournisseur}" />
+
+                <div class="form-group">
+                    <label for="nom">Nom</label>
+                    <input type="text" id="nom" name="nom" th:value="${fournisseur.nom}" placeholder="Nom du fournisseur" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="telephone">Téléphone</label>
+                    <input type="text" id="telephone" name="telephone" th:value="${fournisseur.telephone}" placeholder="Numéro de téléphone" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" th:value="${fournisseur.email}" placeholder="Email du fournisseur" required />
+                </div>
+
+                <button type="submit" class="btn-primary">Valider</button>
+            </form>
+        </div>
+
+        <div class="table-responsive">
+            <table class="clients-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nom</th>
+                        <th>Téléphone</th>
+                        <th>Email</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="f : ${fournisseurs}">
+                        <td th:text="${f.id_fournisseur}"></td>
+                        <td th:text="${f.nom}"></td>
+                        <td th:text="${f.telephone}"></td>
+                        <td th:text="${f.email}"></td>
+                        <td>
+                            <a th:href="@{/fournisseurs/editer/{id}(id=${f.id_fournisseur})}" title="Modifier"><i class="fas fa-edit"></i></a>
+                            <a th:href="@{/fournisseurs/supprimer/{id}(id=${f.id_fournisseur})}" title="Supprimer" onclick="return confirm('Voulez-vous vraiment supprimer ce fournisseur ?')"><i class="fas fa-trash-alt"></i></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </main>
+
+    <footer class="bottom-bar">
+        <div>© 2025 Shopkipper</div>
+        <div class="bottom-links">
+            <a href="/help">Aide</a>
+            <a href="/contact">Contact</a>
+            <a href="/privacy">Confidentialité</a>
+        </div>
+    </footer>
+</div>
+
+<script>
+    function toggleSidebar() { document.querySelector('.sidebar').classList.toggle('collapsed'); document.querySelector('.main-content').classList.toggle('expanded'); }
+</script>
+
+</body>
+</html>

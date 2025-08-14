@@ -25,42 +25,46 @@ public class InscriptionController extends HttpServlet {
         ThymeleafConfig.render(request, response, "formInscription");
     }
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+   @Override
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
 
-        String nom = request.getParameter("nom");
-        String email = request.getParameter("email");
-        String nomUtilisateur = request.getParameter("nom_utilisateur");
-        String motDePasse = request.getParameter("mot_de_passe");
-        String confirmPassword = request.getParameter("confirmPassword");
+    String nom = request.getParameter("nom");
+    String email = request.getParameter("email");
+    String nomUtilisateur = request.getParameter("nom_utilisateur");
+    String motDePasse = request.getParameter("mot_de_passe");
+    String confirmPassword = request.getParameter("confirmPassword");
 
-        if (nom == null || email == null || nomUtilisateur == null || motDePasse == null || confirmPassword == null ||
-            nom.isEmpty() || email.isEmpty() || nomUtilisateur.isEmpty() || motDePasse.isEmpty() || confirmPassword.isEmpty()) {
-            request.setAttribute("error", "Tous les champs sont obligatoires.");
-            ThymeleafConfig.render(request, response, "formInscription");
-            return;
-        }
+    // Vérifications simples
+    if (nom == null || email == null || nomUtilisateur == null || motDePasse == null || confirmPassword == null ||
+        nom.isEmpty() || email.isEmpty() || nomUtilisateur.isEmpty() || motDePasse.isEmpty() || confirmPassword.isEmpty()) {
+        request.setAttribute("error", "Tous les champs sont obligatoires.");
+        ThymeleafConfig.render(request, response, "formInscription");
+        return;
+    }
 
-        if (!motDePasse.equals(confirmPassword)) {
-            request.setAttribute("error", "Les mots de passe ne correspondent pas.");
-            ThymeleafConfig.render(request, response, "formInscription");
-            return;
-        }
+    if (!motDePasse.equals(confirmPassword)) {
+        request.setAttribute("error", "Les mots de passe ne correspondent pas.");
+        ThymeleafConfig.render(request, response, "formInscription");
+        return;
+    }
 
-        // Hashage du mot de passe
-        String hashedPassword = PasswordUtils.hashPassword(motDePasse);
+    // Vérifier si email déjà utilisé
+    if (adminService.authentifier(email, motDePasse) != null) {
+        request.setAttribute("error", "Un administrateur avec cet email existe déjà.");
+        ThymeleafConfig.render(request, response, "formInscription");
+        return;
+    }
 
-        Administrateur admin = new Administrateur(nom, email, nomUtilisateur, hashedPassword);
+    String hashedPassword = PasswordUtils.hashPassword(motDePasse);
+    Administrateur admin = new Administrateur(nom, email, nomUtilisateur, hashedPassword);
 
-        boolean inscrit = adminService.enregistrerAdministrateur(admin);
-
-        if (inscrit) {
-            // Redirection vers la page d'accueil ou dashboard
-            response.sendRedirect("index");
-        } else {
-            request.setAttribute("error", "Erreur lors de l'inscription, veuillez réessayer.");
-            ThymeleafConfig.render(request, response, "formInscription");
-        }
+    boolean inscrit = adminService.enregistrerAdministrateur(admin);
+    if (inscrit) {
+        response.sendRedirect("index");
+    } else {
+        request.setAttribute("error", "Erreur lors de l'inscription, veuillez réessayer.");
+        ThymeleafConfig.render(request, response, "formInscription");
     }
 }
+ }
