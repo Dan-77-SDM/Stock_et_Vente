@@ -30,24 +30,28 @@ public class ProduitController extends HttpServlet {
         String action = request.getServletPath();
         HttpSession session = request.getSession();
 
+        // Toujours envoyer la liste des fournisseurs pour le formulaire
         List<Fournisseur> fournisseurs = fournisseurService.listerFournisseurs();
         request.setAttribute("fournisseurs", fournisseurs);
 
         if (action.equals("/produits")) {
-            List<Produit> produits = produitService.listerProduits();
+            // Affichage liste produits et formulaire vide pour ajout
+            List<Produit> produits = produitService.getToutesProduits();
             request.setAttribute("produits", produits);
             request.setAttribute("produit", new Produit());
             ThymeleafConfig.render(request, response, "produits");
 
         } else if (action.equals("/produits/editer")) {
-            int id = Integer.parseInt(request.getParameter("id"));
+            // Récupération du produit à modifier
+            int id = Integer.parseInt(request.getParameter("id")); // <-- correction ici
             Produit produit = produitService.trouverProduitParId(id);
-            request.setAttribute("produits", produitService.listerProduits());
+            request.setAttribute("produits", produitService.getToutesProduits());
             request.setAttribute("produit", produit);
             ThymeleafConfig.render(request, response, "produits");
 
         } else if (action.equals("/produits/supprimer")) {
-            int id = Integer.parseInt(request.getParameter("id"));
+            // Suppression du produit
+            int id = Integer.parseInt(request.getParameter("id")); // <-- correction ici
             produitService.supprimerProduit(id);
             session.setAttribute("message", "Produit supprimé avec succès !");
             response.sendRedirect(request.getContextPath() + "/produits");
@@ -83,9 +87,11 @@ public class ProduitController extends HttpServlet {
             produit.setId_fournisseur(idFournisseur);
 
             if (idStr == null || idStr.isEmpty() || idStr.equals("0")) {
+                // Ajout
                 produitService.ajouterProduit(produit);
                 session.setAttribute("message", "Produit ajouté avec succès !");
             } else {
+                // Modification
                 produit.setId_produit(Integer.parseInt(idStr));
                 produitService.modifierProduit(produit);
                 session.setAttribute("message", "Produit modifié avec succès !");

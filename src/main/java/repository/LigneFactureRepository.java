@@ -4,6 +4,7 @@ import entities.LigneFacture;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class LigneFactureRepository {
 
@@ -88,4 +89,36 @@ public class LigneFactureRepository {
         }
         return liste;
     }
+
+public List<Map<String, Object>> topProduitsVendus(int limit) {
+    List<Map<String, Object>> topProduits = new ArrayList<>();
+    String sql = "SELECT p.id_produit, p.designation, SUM(l.quantite) AS totalVentes " +
+                 "FROM LigneFacture l " +
+                 "JOIN Produit p ON l.id_produit = p.id_produit " +
+                 "GROUP BY p.id_produit, p.designation " +
+                 "ORDER BY totalVentes DESC " +
+                 "LIMIT ?";
+
+    try (Connection conn = DatabaseConnection.getConnection();
+         PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+        stmt.setInt(1, limit);
+        ResultSet rs = stmt.executeQuery();
+
+        while (rs.next()) {
+            Map<String, Object> map = new java.util.HashMap<>();
+            map.put("id_produit", rs.getInt("id_produit"));
+            map.put("designation", rs.getString("designation"));
+            map.put("totalVentes", rs.getInt("totalVentes"));
+            topProduits.add(map);
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return topProduits;
+}
+
+
 }

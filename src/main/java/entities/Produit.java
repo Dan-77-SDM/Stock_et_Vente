@@ -10,6 +10,9 @@ public class Produit {
     private Integer id_fournisseur; // pour la BD
     private Fournisseur fournisseur; // pour Thymeleaf et la logique métier
 
+    // Pour le dashboard : nombre de ventes
+    private int ventes;
+
     // Constructeurs
     public Produit() {}
 
@@ -46,4 +49,8 @@ public class Produit {
 
     public Fournisseur getFournisseur() { return fournisseur; }
     public void setFournisseur(Fournisseur fournisseur) { this.fournisseur = fournisseur; }
+
+    // Getter/Setter pour ventes
+    public int getVentes() { return ventes; }
+    public void setVentes(int ventes) { this.ventes = ventes; }
 }

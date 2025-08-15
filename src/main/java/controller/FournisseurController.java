@@ -50,7 +50,7 @@ public class FournisseurController extends HttpServlet {
         System.out.println("doPost FournisseurController appelé");
         request.getParameterMap().forEach((k,v) -> System.out.println(k + " = " + String.join(",", v)));
 
-        String idStr = request.getParameter("id");
+        String idStr = request.getParameter("id_fournisseur");
         String nom = request.getParameter("nom");
         String telephone = request.getParameter("telephone");
         String email = request.getParameter("email");

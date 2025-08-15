@@ -53,12 +53,12 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
 
     try {
-        String idStr = request.getParameter("id");
+        String idStr = request.getParameter("id_client");
         String nom = request.getParameter("nom");
         String email = request.getParameter("email");
         String numeroStr = request.getParameter("numero");
 
-        System.out.println("Paramètres reçus : id=" + idStr + ", nom=" + nom + ", email=" + email + ", numero=" + numeroStr);
+        System.out.println("Paramètres reçus : id_client=" + idStr + ", nom=" + nom + ", email=" + email + ", numero=" + numeroStr);
 
         int numero = 0; // valeur par défaut
         if (numeroStr != null && !numeroStr.isEmpty()) {

@@ -47,17 +47,7 @@
                 <input type="text" placeholder="Recherche..." />
                 <button><i class="fas fa-search"></i></button>
             </div>
-            <div class="navbar-right">
-                <button class="btn-notification"><i class="fas fa-bell"></i></button>
-                <div class="profile-menu">
-                    <button class="btn-profile" onclick="toggleProfileMenu()"><i
-                            class="fas fa-user-circle"></i></button>
-                    <ul class="dropdown-menu" id="profileDropdown">
-                        <li><a href="/profile">Profil</a></li>
-                        <li><a href="/logout">Déconnexion</a></li>
-                    </ul>
-                </div>
-            </div>
+   
         </header>
 
         <main>
@@ -101,7 +91,8 @@
                         <select id="id_facture" name="id_facture" required>
                             <option th:each="f : ${factures}" th:value="${f.id_facture}"
                                 th:text="${f.id_facture} + ' - ' + ${f.date}"
-                                th:selected="${ligneFacture.id_facture} == ${f.id_facture}"></option>
+                                th:selected="${ligneFacture.id_facture} == ${f.id_facture}">
+                            </option>
                         </select>
                     </div>
 

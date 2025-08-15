@@ -15,6 +15,7 @@ services/AdministrateurService.class
 controller/FournisseurController.class
 MainDatabaseconnection.class
 repository/FournisseurRepository.class
+entities/LigneFactureDTO.class
 repository/DatabaseConnection.class
 utility/ThymeleafConfig.class
 MainLigneFacture.class
@@ -28,6 +29,7 @@ services/FactureService.class
 controller/ClientController.class
 repository/ClientRepository.class
 controller/ConnexionController.class
+services/FacturePDFService.class
 controller/LigneFactureController.class
 entities/Fournisseur.class
 entities/Administrateur.class

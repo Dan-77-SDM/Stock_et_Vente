@@ -1,7 +1,7 @@
 package repository;
 
 import entities.Facture;
-
+import entities.LigneFacture;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +14,7 @@ public class FactureRepository {
              PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
             stmt.setDate(1, facture.getDate());
-            stmt.setInt(2, facture.getTotal());
+            stmt.setDouble(2, facture.getTotal());
             if (facture.getId_client() != null) {
                 stmt.setInt(3, facture.getId_client());
             } else {
@@ -23,7 +23,6 @@ public class FactureRepository {
 
             stmt.executeUpdate();
 
-            // Récupérer l'id généré automatiquement
             try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
                     facture.setId_facture(generatedKeys.getInt(1));
@@ -41,7 +40,7 @@ public class FactureRepository {
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setDate(1, facture.getDate());
-            stmt.setInt(2, facture.getTotal());
+            stmt.setDouble(2, facture.getTotal());
             if (facture.getId_client() != null) {
                 stmt.setInt(3, facture.getId_client());
             } else {
@@ -79,13 +78,9 @@ public class FactureRepository {
                 Facture facture = new Facture();
                 facture.setId_facture(rs.getInt("id_facture"));
                 facture.setDate(rs.getDate("date"));
-                facture.setTotal(rs.getInt("total"));
+                facture.setTotal(rs.getDouble("total"));
                 int clientId = rs.getInt("id_client");
-                if (rs.wasNull()) {
-                    facture.setId_client(null);
-                } else {
-                    facture.setId_client(clientId);
-                }
+                facture.setId_client(rs.wasNull() ? null : clientId);
                 return facture;
             }
 
@@ -106,13 +101,9 @@ public class FactureRepository {
                 Facture facture = new Facture();
                 facture.setId_facture(rs.getInt("id_facture"));
                 facture.setDate(rs.getDate("date"));
-                facture.setTotal(rs.getInt("total"));
+                facture.setTotal(rs.getDouble("total"));
                 int clientId = rs.getInt("id_client");
-                if (rs.wasNull()) {
-                    facture.setId_client(null);
-                } else {
-                    facture.setId_client(clientId);
-                }
+                facture.setId_client(rs.wasNull() ? null : clientId);
                 liste.add(facture);
             }
 
@@ -120,5 +111,59 @@ public class FactureRepository {
             e.printStackTrace();
         }
         return liste;
+    }
+
+    public List<Integer> ventesMensuelles() {
+        List<Integer> ventes = new ArrayList<>();
+        for (int i = 0; i < 12; i++) ventes.add(0);
+
+        String sql = "SELECT MONTH(date) AS mois, SUM(total) AS totalVentes FROM Facture GROUP BY MONTH(date)";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                int mois = rs.getInt("mois");
+                double totalVentes = rs.getDouble("totalVentes");
+                ventes.set(mois - 1, (int)Math.round(totalVentes));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ventes;
+    }
+
+    /**
+     * Récupère toutes les lignes d'une facture
+     * @param idFacture L'ID de la facture
+     * @return Liste des lignes de facture
+     */
+    public List<LigneFacture> listerLignesFacture(int idFacture) {
+        List<LigneFacture> lignes = new ArrayList<>();
+        String sql = "SELECT * FROM LigneFacture WHERE id_facture = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, idFacture);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                LigneFacture lf = new LigneFacture();
+                lf.setId_ligne(rs.getInt("id_ligne"));
+                lf.setId_facture(rs.getInt("id_facture"));
+                lf.setId_produit(rs.getInt("id_produit"));
+                lf.setQuantite(rs.getInt("quantite"));
+                lf.setPrixUnitaire(rs.getInt("prixUnitaire"));
+                lignes.add(lf);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return lignes;
     }
 }

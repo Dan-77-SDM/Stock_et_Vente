@@ -34,7 +34,7 @@ public class LigneFactureController extends HttpServlet {
         String action = request.getServletPath();
         HttpSession session = request.getSession();
 
-        List<Produit> produits = produitService.listerProduits();
+        List<Produit> produits = produitService.getToutesProduits();
         List<Facture> factures = factureService.getToutesFactures();
 
         request.setAttribute("produits", produits);
@@ -45,14 +45,12 @@ public class LigneFactureController extends HttpServlet {
             request.setAttribute("lignesFacture", lignes);
             request.setAttribute("ligneFacture", new LigneFacture());
             ThymeleafConfig.render(request, response, "ligneFacture");
-
         } else if (action.equals("/ligneFacture/editer")) {
             int id = Integer.parseInt(request.getParameter("id"));
             LigneFacture ligne = service.getLigne(id);
             request.setAttribute("lignesFacture", service.getToutesLignes());
             request.setAttribute("ligneFacture", ligne);
             ThymeleafConfig.render(request, response, "ligneFacture");
-
         } else if (action.equals("/ligneFacture/supprimer")) {
             int id = Integer.parseInt(request.getParameter("id"));
             service.supprimerLigne(id);
@@ -100,7 +98,8 @@ public class LigneFactureController extends HttpServlet {
                 session.setAttribute("message", "Ligne modifiée avec succès !");
             }
 
-            response.sendRedirect(request.getContextPath() + "/ligneFacture");
+            // 🔹 Redirection vers la page facturePDF.html de cette facture
+            response.sendRedirect(request.getContextPath() + "/factures/generer?id=" + idFacture);
 
         } catch (NumberFormatException e) {
             session.setAttribute("error", "Quantité, prix, ID produit ou ID facture invalide.");

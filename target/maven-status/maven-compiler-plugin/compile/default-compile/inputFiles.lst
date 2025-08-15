@@ -1,4 +1,5 @@
 /home/sdm/Bureau/Gestion-stock/src/main/java/repository/AdministrateurRepository.java
+/home/sdm/Bureau/Gestion-stock/src/main/java/services/FacturePDFService.java
 /home/sdm/Bureau/Gestion-stock/src/main/java/MainProduit.java
 /home/sdm/Bureau/Gestion-stock/src/main/java/services/LigneFactureService.java
 /home/sdm/Bureau/Gestion-stock/src/main/java/entities/Client.java
@@ -22,6 +23,7 @@
 /home/sdm/Bureau/Gestion-stock/src/main/java/MainFournisseurRepository.java
 /home/sdm/Bureau/Gestion-stock/src/main/java/controller/ProduitController.java
 /home/sdm/Bureau/Gestion-stock/src/main/java/services/AdministrateurService.java
+/home/sdm/Bureau/Gestion-stock/src/main/java/entities/LigneFactureDTO.java
 /home/sdm/Bureau/Gestion-stock/src/main/java/repository/LigneFactureRepository.java
 /home/sdm/Bureau/Gestion-stock/src/main/java/entities/LigneFacture.java
 /home/sdm/Bureau/Gestion-stock/src/main/java/utility/PasswordUtils.java
