@@ -61,6 +61,6 @@ public class ProduitService {
      * Nombre de produits en rupture de stock
      */
     public int getProduitsRuptureStock() {
-        return (int) produitRepository.listerProduits().stream().filter(p -> p.getStock() <= 0).count();
+        return (int) produitRepository.listerProduits().stream().filter(p -> p.getStock() <= 10).count();
     }
 }
