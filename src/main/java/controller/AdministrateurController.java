@@ -24,14 +24,14 @@ public class AdministrateurController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String path = request.getServletPath();
+        String path = request.getServletPath(); // Récupère le chemin du servlet 
 
         switch (path) {
             case "/formInscription":
-                handleInscription(request, response);
-                break;
+                handleInscription(request, response);// Gère l'inscription ici handle signifie "gérer" ou "traiter" c'est une méthode privée qui traite les données d'inscription
+                break; // break signifie "arrêter" ou "sortir" de la boucle ou du switch
             case "/formConnexion":
-                handleConnexion(request, response);
+                handleConnexion(request, response); // Gère la connexion ici
                 break;
             default:
                 response.sendError(HttpServletResponse.SC_NOT_FOUND);

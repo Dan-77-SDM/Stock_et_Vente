@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Pour le responsive en effet, content c'est pour la mise en page , initial-scale c'est pour le zoom  et viewport c'est pour la zone d'affichage -->
     <title>Connexion</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" th:href="@{/resources/CSS/style.css}">
@@ -12,12 +12,12 @@
 <body>
 
     <div class="container">
-        <form class="form" th:action="@{/formConnexion}" method="post">
+        <form class="form" th:action="@{/formConnexion}" method="post"> <!-- Le th:action permet de générer l'URL correcte en fonction du contexte de l'application -->
             <h2>Se connecter</h2>
 
-            <!-- Affiche un message d'erreur si paramètre ?erreur=1 présent -->
-            <div th:if="${error}" style="color:red; margin-bottom: 10px;">
-                <p th:text="${error}"></p>
+            <!-- Affiche un message d'erreur si le paramètre ?error=1 présent -->
+            <div th:if="${error}" style="color:red; margin-bottom: 10px; font-weight: bold;">
+                <p th:text="${error}"></p> <!-- Affiche le message d'erreur dynamique -->
             </div>
 
     <label for="email">Adresse email</label>
@@ -26,6 +26,13 @@
     <label for="mot_de_passe">Mot de passe</label>
     <div class="password-container">
         <input type="password" id="mot_de_passe" name="mot_de_passe" placeholder="Mot de passe" required>
+           <i
+          class="fas fa-eye toggle-password"
+          onclick="togglePassword('mot_de_passe', this)"
+          aria-label="Afficher / masquer le mot de passe"
+          role="button"
+          tabindex="0"
+        ></i>
     </div>
 
     <button type="submit">Se connecter</button>
@@ -36,6 +43,16 @@
     <p class="lien-de-connexion">Pas de compte ? <a th:href="@{/formInscription}">S'inscrire</a></p>
     </form>
     </div>
+
+     <script>
+    function togglePassword(inputId, icon) {  // Fonction pour afficher/masquer le mot de passe
+      const input = document.getElementById(inputId); // Récupère le champ de mot de passe
+      const isPassword = input.type === "password"; // Vérifie le type actuel
+      input.type = isPassword ? "text" : "password"; // Change le type
+      icon.classList.toggle("fa-eye"); // Change l'icône
+      icon.classList.toggle("fa-eye-slash"); // Change l'icône
+    }
+  </script>
 
 </body>
 

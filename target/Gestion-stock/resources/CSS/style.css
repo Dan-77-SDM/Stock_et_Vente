@@ -173,26 +173,6 @@ button[type="submit"]:hover, .btn-submit:hover, .google-btn:hover {
   right: 0;
 }
 
-/* Bouton Google */
-.google-btn {
-  background-color: #db4437;
-  color: white;
-  border: none;
-  padding: 0.85rem 0;
-  border-radius: 10px;
-  font-weight: 700;
-  font-size: 1rem;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  transition: background-color 0.3s ease;
-}
-
-.google-btn:hover {
-  background-color: #a8362f;
-}
 
 /* Lien connexion */
 .lien-de-connexion {

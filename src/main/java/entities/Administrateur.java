@@ -14,7 +14,7 @@ public class Administrateur {
     public Administrateur(String nom, String email, String nomUtilisateur, String motDePasse) {
         this.nom = nom;
         this.email = email;
-        this.nom_utilisateur = nomUtilisateur;
+        this.nom_utilisateur = nomUtilisateur; //
         this.mot_de_passe = motDePasse;
     }
 

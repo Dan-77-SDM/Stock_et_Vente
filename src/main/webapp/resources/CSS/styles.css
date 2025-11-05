@@ -24,7 +24,7 @@
 
 /* Styles de base pour le corps de la page */
 body {
-    background-color: #f5f7fa;      /* Couleur de fond légère */
+    background-color: aliceblue;      /* Couleur de fond légère */
     color: var(--dark-color);       /* Couleur de texte sombre */
     overflow-x: hidden;             /* Cache la barre de défilement horizontale */
 }
@@ -232,39 +232,50 @@ main h1 {
 .dashboard-cards {
     display: flex;
     gap: 20px;
-    flex-wrap: wrap;
+    flex-wrap: wrap; /* */
     margin-bottom: 30px;
 }
 
 .card {
-    background: white;
+    background: linear-gradient(to bottom right, #ffffff, #f0f0f0 );
     border-radius: 8px;
     padding: 20px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    flex: 1 1 300px;
+    flex: 1 1 300px; /* */
     min-height: 15px;
     display: flex;
     flex-direction: column;
+    transition: 1s;
+
+}
+
+.Card :hover{
+    background-color: seashell;
+    box-shadow: 2px 5px 17px var(--dark-color);
 }
 
 
 .card h3 {
     margin-bottom: 39px;
-    color: #4a4e69;
+    color: #475fff;
     font-weight: 600;
     display: flex;
     gap: 8px;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     position: relative;
     float: left;
     padding-left: 5px;
+    transition: 1s;
+}
+.card h3:hover{
+    font-size: 1.6rem;
 }
 
 
 .card.total-produits i,.card.produits-rupture-stock i, .card.ventes-evolution i{
 
        color: var(--light-color); /* Couleur de l'icône */
-    font-size: 1.9rem; /* Taille de l'icône */
+    font-size: 1.8rem; /* Taille de l'icône */
     background-color: var(--danger-color);
     border-radius: 50%; /* Forme circulaire */
     border: 2px solid var(--danger-color); /* Bordure blanche */
@@ -274,15 +285,28 @@ main h1 {
     box-shadow:5px 5px 10px var(--gray-color);
     margin-top: 5px;
     margin-bottom: 22px;
+    transition: 1s;
+    animation: border_color infinite   ease ;
+}
+@keyframes border_color {
+    0%{ border: var(--danger-color);}
+    25%{ border: var(--success-color);}
+    50%{ border: var(--primary-color);}
+    100%{ border: var(--danger-color);}
+}
+
+.card.total-produits i,.card.produits-rupture-stock i, .card.ventes-evolution i:hover{
+    font-size: 2rem;
+    box-shadow: 6px 6px 11px var(--gray-color);
 }
 .icon-total{
-font-size: 2.5rem;
+font-size: 2.6rem;
 margin-top: 4px;
 
 }
 
 .icon-ruprure{
-    font-size: 2,5rem;
+    font-size: 2,6rem;
 margin-top: 4px;
 }
 
@@ -301,9 +325,13 @@ margin-top: 4px;
 }
 
 .top-produits-vendus th {
-    background-color: #f0f0f0;
+    background-color: azure;
     color: #2c43da;
     font-weight: 700;
+}
+
+.top-produits-vendus tr:hover{
+background-color: #adb5bd;
 }
 
 .bar-container {
