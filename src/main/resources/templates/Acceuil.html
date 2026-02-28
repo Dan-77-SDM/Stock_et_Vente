@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Accueil | Gestion de stock</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Police moderne -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+    body {background:#f5f7fb;color:#1f2937;}
+    a{text-decoration:none;}
+
+    /* HERO */
+    .hero {height:100vh;position:relative;overflow:hidden;background-image:url('https://images.unsplash.com/photo-1612831455547-abc7b383b1df');background-size:cover;background-position:center;display:flex;justify-content:center;align-items:center;}
+    .hero .overlay {background:rgba(0,0,0,0.5);padding:30px;text-align:center;color:white;}
+    .hero h1 {font-size:3.5rem;margin-bottom:20px;}
+    .hero p {font-size:1.5rem;max-width:800px;margin:auto;}
+    .btn-primary {margin-top:30px;background-color:#2563eb;color:white;padding:16px 36px;border-radius:30px;font-weight:600;transition:transform 0.3s, background-color 0.3s;}
+    .btn-primary:hover {background-color:#1e40af;transform:scale(1.05);}
+
+    /* SECTIONS */
+    section {padding:100px 10%;}
+    .section-title{text-align:center;font-size:2.5rem;margin-bottom:60px;}
+
+    /* Cartes */
+    .cards {display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:40px;}
+    .card {background:white;padding:40px;border-radius:20px;box-shadow:0 10px 30px rgba(0,0,0,0.1);opacity:0;transform:translateY(50px);transition:0.8s ease;}
+    .card.visible{opacity:1;transform:translateY(0);}
+    .card h3 {color:#2563eb;margin-bottom:15px;}
+
+    /* FOOTER */
+    footer {background:#0f172a;color:#cbd5e1;padding:60px 10%;}
+    .footer-grid {display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:30px;}
+    footer h4{color:white;margin-bottom:15px;}
+    footer a{color:#94a3b8;display:block;margin-bottom:8px;}
+    footer a:hover{color:white;}
+    .copyright{text-align:center;margin-top:30px;font-size:0.9rem;}
+  </style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="overlay">
+    <h1>Gérez vos ventes et votre stock efficacement</h1>
+    <p>Une solution neutre, propre et professionnelle pour votre boutique.</p>
+  </div>
+</div>
+
+<!-- COMMENT ÇA MARCHE -->
+<section>
+  <h2 class="section-title">Comment ça fonctionne ?</h2>
+  <div class="cards">
+    <div class="card">
+      <h3>Ajouter vos produits</h3>
+      <p>Enregistrez facilement tous vos articles avec toutes les informations essentielles.</p>
+    </div>
+    <div class="card">
+      <h3>Enregistrer vos ventes</h3>
+      <p>Créez des ventes et générez des factures claires et rapides.</p>
+    </div>
+    <div class="card">
+      <h3>Suivre vos résultats</h3>
+      <p>Analysez vos performances en temps réel pour prendre de meilleures décisions.</p>
+    </div>
+    <div class="card">
+      <h3>Gérer vos fournisseurs</h3>
+      <p>Organisez et suivez vos relations avec vos fournisseurs facilement.</p>
+    </div>
+    <div class="card">
+      <h3>Tableau de bord complet</h3>
+      <p>Visualisez vos ventes, stocks et statistiques en un seul endroit.</p>
+    </div>
+  </div>
+</section>
+
+<!-- AVANTAGES -->
+<section>
+  <h2 class="section-title">Avantages pour votre business</h2>
+  <div class="cards">
+    <div class="card">
+      <h3>Gain de temps</h3>
+      <p>Automatisez les tâches répétitives et concentrez-vous sur l’essentiel.</p>
+    </div>
+    <div class="card">
+      <h3>Moins d’erreurs</h3>
+      <p>Suivi précis et notifications pour éviter les pertes et erreurs de stock.</p>
+    </div>
+    <div class="card">
+      <h3>Données sécurisées</h3>
+      <p>Vos informations restent confidentielles et accessibles en toute sécurité.</p>
+    </div>
+  </div>
+</section>
+
+<!-- APPEL À L'ACTION -->
+<section>
+  <h2 class="section-title">Prêt à optimiser votre gestion ?</h2>
+  <div style="text-align:center;">
+    <a href="inscription.html" class="btn-primary">Créer un compte</a>
+    <a href="connexion.html" class="btn-primary" style="margin-left:20px;background-color:#1e40af;">Se connecter</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <h4>Gestion de stock</h4>
+      <p>Une application neutre, propre et professionnelle pour la gestion de votre boutique.</p>
+    </div>
+    <div>
+      <h4>Navigation</h4>
+      <a href="#">Accueil</a>
+      <a href="connexion.html">Connexion</a>
+      <a href="inscription.html">Inscription</a>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <a href="mailto:support@app.com">support@app.com</a>
+      <a href="#">+237 XXX XXX XXX</a>
+    </div>
+  </div>
+  <div class="copyright">© 2026 Gestion de Stock – Tous droits réservés</div>
+</footer>
+
+<!-- JAVASCRIPT - Animation au scroll -->
+<script>
+  const cards = document.querySelectorAll('.card');
+  window.addEventListener('scroll', () => {
+    const triggerPoint = window.innerHeight * 0.85;
+    cards.forEach(card => {
+      const cardTop = card.getBoundingClientRect().top;
+      if(cardTop < triggerPoint){
+        card.classList.add('visible');
+      }
+    });
+  });
+</script>
+
+</body>
+</html>

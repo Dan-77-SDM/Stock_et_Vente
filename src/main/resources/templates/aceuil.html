@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title>Accueil</title>
+
+<style>
+/* ================== BASE ================== */
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+body{background:#0a0f1a;color:#cbd5e1;overflow-x:hidden;}
+a{text-decoration:none;color:inherit;}
+
+/* ================== NAVBAR ================== */
+.nav-bar{
+    background:#010c30;
+    padding:15px 30px;
+    display:flex;
+    justify-content:flex-end;
+    position:fixed;
+    top:0;
+    width:100%;
+    z-index:1000;
+}
+.btn-connexion{
+    background:#2563eb;
+    padding:10px 25px;
+    border-radius:25px;
+    font-weight:600;
+    transition:0.3s;
+}
+.btn-connexion:hover{
+    background:#1e40af;
+    transform:scale(1.05);
+}
+
+/* ================== HERO ================== */
+.section1{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    padding:120px 40px 60px;
+}
+
+.ligne1{
+    display:flex;
+    align-items:center;
+    gap:30px;
+    padding:20px 40px;
+    border-radius:15px;
+    backdrop-filter:blur(10px);
+}
+
+.logo{
+    width:200px;
+    height:200px;
+    border-radius:50%;
+    border:3px solid #ffcc00;
+    background:url('S_20260117_220302_0000.png') center/cover;
+    transition:0.3s;
+}
+.logo:hover{transform:scale(1.08);}
+
+.shop-text h1{
+    font-size:4.5rem;
+}
+
+.ligne2{
+    margin-top:40px;
+    padding:30px;
+    border-radius:15px;
+    border:1px solid rgba(255,255,255,0.2);
+    backdrop-filter:blur(10px);
+}
+
+.texte-accueil h2{font-size:5rem;margin-bottom:20px;}
+.sous-titre marquee{font-size:3rem;}
+
+/* ================== SECTION 2 IMAGE ================== */
+.section2{
+    background:url('african-american-employee-preparing-bag-with-purchase-elderly-client-modern-boutique-fashionable-woman-buying-stylish-casual-wear-store-making-electronic-payment-pos-terminal.jpg')
+    no-repeat center/cover;
+    padding:80px 0;
+}
+
+/* ================== TITRES ================== */
+.ligne-intermediaire h1,
+.ligne2-intermediaire h1{
+    text-align:center;
+    font-size:3rem;
+    margin:80px 20px;
+}
+
+/* ================== GRIDS ================== */
+.ligne-principale,
+.ligne-principale-2{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:40px;
+    margin:0 5%;
+}
+
+/* ================== CARDS ================== */
+.card-ajout,.card-gestion,.card-vente,
+.card-resultats,.card-fournisseurs,.card-dashboard,
+.card-gain,.card-erreurs,.card-securise{
+    background:rgba(255,255,255,0.08);
+    backdrop-filter:blur(10px);
+    padding:40px;
+    border-radius:20px;
+    min-height:380px;
+    transition:0.3s;
+}
+.card-ajout:hover,.card-gestion:hover,.card-vente:hover,
+.card-resultats:hover,.card-fournisseurs:hover,.card-dashboard:hover,
+.card-gain:hover,.card-erreurs:hover,.card-securise:hover{
+    transform:translateY(-10px);
+    background:rgba(255,255,255,0.15);
+}
+
+/* ================== CTA ================== */
+.section4{
+    background:#1a1f2e;
+    padding:120px 20px;
+    text-align:center;
+}
+.section4 h2{font-size:3rem;margin-bottom:40px;}
+.btn-commencer{
+    background:#2563eb;
+    padding:15px 40px;
+    border-radius:30px;
+    font-weight:600;
+    transition:0.3s;
+}
+.btn-commencer:hover{background:#1e40af;}
+
+/* ================== FOOTER ================== */
+footer{
+    background:#010c30;
+    padding:60px 10%;
+}
+.footer-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:30px;
+}
+footer h4{color:white;margin-bottom:15px;}
+.copyright{text-align:center;margin-top:30px;font-size:0.9rem;}
+
+/* ================== RESPONSIVE ================== */
+@media(max-width:1024px){
+    .texte-accueil h2{font-size:3.5rem;}
+    .shop-text h1{font-size:3.5rem;}
+}
+
+@media(max-width:768px){
+    .nav-bar{justify-content:center;}
+    .section1{padding:120px 20px;}
+    .ligne1{flex-direction:column;text-align:center;}
+    .logo{width:120px;height:120px;}
+    .shop-text h1{font-size:2.5rem;}
+    .texte-accueil h2{font-size:2.2rem;}
+    .sous-titre marquee{font-size:1.4rem;}
+    .ligne-intermediaire h1,
+    .ligne2-intermediaire h1{font-size:2rem;}
+}
+</style>
+</head>
+
+<body>
+
+<div class="nav-bar">
+    <a href="formConnexion.html" class="btn-connexion">Login</a>
+</div>
+
+<section class="section1">
+    <div class="ligne1">
+        <div class="logo"></div>
+        <div class="shop-text"><h1>ShopKipper</h1></div>
+    </div>
+
+    <div class="ligne2">
+        <div class="texte-accueil">
+            <h2>Gérez vos ventes et votre stock efficacement</h2>
+            <div class="sous-titre">
+                <marquee>Une solution neutre, propre et professionnelle pour votre boutique.</marquee>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="ligne-intermediaire">
+    <h1>Comment ça fonctionne ?</h1>
+</div>
+
+<section class="section2">
+    <div class="ligne-principale">
+        <div class="card-ajout"><h2>Ajouter vos produits</h2><p>Enregistrez facilement tous vos articles avec toutes les informations essentielles.</p></div>
+        <div class="card-gestion"><h2>Gérer votre stock</h2><p>Suivez les niveaux de stock en temps réel et recevez des alertes pour les réapprovisionnements.</p></div>
+        <div class="card-vente"><h2>Enregistrer vos ventes</h2><p>Créez des ventes et générez des factures claires et rapides.</p></div>
+    </div>
+</section>
+
+<div class="ligne2-intermediaire">
+    <h1>Avantages pour votre business</h1>
+</div>
+
+<section class="section3">
+    <div class="ligne-principale-2">
+        <div class="card-gain"><h2>Gain de temps</h2><p>Automatisez les tâches répétitives et concentrez-vous sur l’essentiel.</p></div>
+        <div class="card-erreurs"><h2>Moins d’erreurs</h2><p>Suivi précis et notifications pour éviter les pertes et erreurs de stock.</p></div>
+        <div class="card-securise"><h2>Données sécurisées</h2><p>Vos informations restent confidentielles et accessibles en toute sécurité.</p></div>
+    </div>
+</section>
+
+<section class="section4">
+    <h2>Prêt à commencer ?</h2>
+    <a href="formInscription.html" class="btn-commencer">Créer un compte</a>
+</section>
+
+<footer>
+    <div class="footer-grid">
+        <div>
+            <h4>ShopKipper</h4>
+            <p>Une application neutre, propre et professionnelle pour la gestion de votre boutique.</p>
+        </div>
+        <div>
+            <h4>Navigation</h4>
+            <a href="#">Accueil</a>
+            <a href="connexion.html">Connexion</a>
+            <a href="inscription.html">Inscription</a>
+        </div>
+        <div>
+            <h4>Contact</h4>
+            <a href="#">support@app.com</a>
+            <a href="#">+237 XXX XXX XXX</a>
+        </div>
+    </div>
+    <div class="copyright">© 2026 Gestion de Stock – Tous droits réservés</div>
+</footer>
+
+</body>
+</html>

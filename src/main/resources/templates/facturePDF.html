@@ -93,8 +93,10 @@
 </table>
 
 <div class="total">
-    Total Général : <span th:text="${facture.total}">0</span>
+    Total Général : <span th:text="${facture.total}"></span>
 </div>
+
+<button onclick="window.print()">Imprimer</button>
 
 <a th:href="@{/factures/pdf(id=${facture.id_facture})}" class="btn-primary">
     Imprimer / Télécharger PDF
